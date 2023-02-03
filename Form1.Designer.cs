@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(XSLT));
             this.xsltProcess = new System.Windows.Forms.Button();
             this.inputFile = new System.Windows.Forms.TextBox();
             this.resultFile = new System.Windows.Forms.TextBox();
@@ -51,6 +52,9 @@
             // 
             // inputFile
             // 
+            this.inputFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.inputFile.Enabled = false;
             this.inputFile.Location = new System.Drawing.Point(12, 39);
             this.inputFile.Multiline = true;
             this.inputFile.Name = "inputFile";
@@ -61,6 +65,9 @@
             // 
             // resultFile
             // 
+            this.resultFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.resultFile.Enabled = false;
             this.resultFile.Location = new System.Drawing.Point(471, 39);
             this.resultFile.Multiline = true;
             this.resultFile.Name = "resultFile";
@@ -95,6 +102,8 @@
             // 
             // resultPath
             // 
+            this.resultPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.resultPath.Location = new System.Drawing.Point(471, 13);
             this.resultPath.Name = "resultPath";
             this.resultPath.Size = new System.Drawing.Size(300, 20);
@@ -102,6 +111,8 @@
             // 
             // inputPath
             // 
+            this.inputPath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
             this.inputPath.Enabled = false;
             this.inputPath.Location = new System.Drawing.Point(13, 13);
             this.inputPath.Name = "inputPath";
@@ -131,7 +142,12 @@
             this.Controls.Add(this.resultFile);
             this.Controls.Add(this.inputFile);
             this.Controls.Add(this.xsltProcess);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(800, 490);
+            this.MinimumSize = new System.Drawing.Size(800, 490);
             this.Name = "XSLT";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "XSLT";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);

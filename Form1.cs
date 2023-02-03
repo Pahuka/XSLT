@@ -12,7 +12,6 @@ namespace XSLT
         XDocument xmlList;
         XDocument xmlGroup;
         XslCompiledTransform transformer;
-        string xslPath;
 
         public XSLT()
         {
@@ -25,6 +24,9 @@ namespace XSLT
             xsltProcess.Enabled = false;
             addElemCount.Enabled = false;
             openXSL.Enabled = false;
+            resultPath.Enabled = false;
+            inputFile.Enabled = false;
+            resultFile.Enabled = false;
         }
 
         private void xsltProcess_Click_1(object sender, EventArgs e)
@@ -34,8 +36,7 @@ namespace XSLT
             using (var writer = xmlGroup.CreateWriter())
             {
                 using (var reader = xmlList.CreateReader())
-                {
-                    transformer.Load(xslPath);
+                {                    
                     transformer.Transform(reader, writer);
                 }
             }
@@ -64,31 +65,38 @@ namespace XSLT
 
         private void openFile_Click(object sender, EventArgs e)
         {
-            openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "XML files(*.xml)|*.xml";
-            openFileDialog.ShowDialog(this);
-
-            if (openFileDialog.FileName != string.Empty)
-            {
-                inputPath.Text = Path.GetFullPath(openFileDialog.FileName);
-                resultPath.Text = Path.Combine(Path.GetDirectoryName(openFileDialog.FileName), "result.xml");
-                xmlList = XDocument.Load(openFileDialog.FileName);
-                inputFile.Text = xmlList.ToString();
-                openXSL.Enabled = true;
-            }
-        }
+            OpenFileDialog("XML files(*.xml)|*.xml");
+        }        
 
         private void openXSL_Click(object sender, EventArgs e)
         {
+            OpenFileDialog("XSL files(*.xsl)|*.xsl");            
+        }
+
+        private void OpenFileDialog(string fileFilter)
+        {
             openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "XSL files(*.xsl)|*.xsl";
+            openFileDialog.Filter = fileFilter;
+            openFileDialog.Multiselect = false;
             openFileDialog.ShowDialog(this);
 
-            if (openFileDialog.FileName != string.Empty)
+            if (openFileDialog.FileName != string.Empty && fileFilter.Contains("XML"))
             {
-                xslPath = Path.GetFullPath(openFileDialog.FileName);
+                inputPath.Text = Path.GetFullPath(openFileDialog.FileName);
+                resultPath.Text = Path.Combine(Path.GetDirectoryName(openFileDialog.FileName), "Groups.xml");
+                xmlList = XDocument.Load(openFileDialog.FileName);
+                inputFile.Text = xmlList.ToString();
+                openXSL.Enabled = true;
+                resultPath.Enabled = true;
+                inputFile.Enabled = true;
+            }
+
+            if (openFileDialog.FileName != string.Empty && fileFilter.Contains("XSL"))
+            {
+                transformer.Load(Path.GetFullPath(openFileDialog.FileName));
                 xsltProcess.Enabled = true;
                 addElemCount.Enabled = true;
+                resultFile.Enabled = true;
             }
         }
     }

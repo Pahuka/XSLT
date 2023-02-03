@@ -33,10 +33,18 @@ namespace XSLT
         {
             xmlGroup = new XDocument();
 
+            if (Path.GetExtension(resultPath.Text) != ".xml")
+            {
+                MessageBox.Show($"{resultPath.Text}\nУкажите имя файла с расширением *.xml", "Ошибка", 
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+
             using (var writer = xmlGroup.CreateWriter())
             {
                 using (var reader = xmlList.CreateReader())
-                {                    
+                {
                     transformer.Transform(reader, writer);
                 }
             }
@@ -66,11 +74,11 @@ namespace XSLT
         private void openFile_Click(object sender, EventArgs e)
         {
             OpenFileDialog("XML files(*.xml)|*.xml");
-        }        
+        }
 
         private void openXSL_Click(object sender, EventArgs e)
         {
-            OpenFileDialog("XSL files(*.xsl)|*.xsl");            
+            OpenFileDialog("XSL files(*.xsl)|*.xsl");
         }
 
         private void OpenFileDialog(string fileFilter)
